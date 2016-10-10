@@ -6,13 +6,17 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         
-        stompClient.subscribe('/topic/TOPICOXX', function (data) {
+        stompClient.subscribe('/topic/newpoint', function (data) {
            
-            
+            alert(data); 
         });
     });
 }
-
+function sendPoint(){
+ x1 = $("#txtX").val();
+ y1 = $("#txtY").val();
+   stompClient.send("/topic/newpoint", {}, JSON.stringify({x:x1,y:y1})); 
+}
 function disconnect() {
     if (stompClient != null) {
         stompClient.disconnect();
